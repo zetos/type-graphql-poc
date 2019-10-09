@@ -3,7 +3,10 @@
     "type": "postgres",
     "host": "localhost",
     "port": 5432,
-    "username": "temp",
-    "password": "temp",
-    "database": "temp"
+    "username": "zeno",
+    "password": "paradox",
+    "database": "foo-db",
+    "synchronize": true,
+    "logging": true,
+    "entities": ["src/entity/*.*"]
 }

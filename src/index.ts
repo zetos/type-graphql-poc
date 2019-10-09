@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import {ApolloServer} from 'apollo-server-express';
 import * as express from 'express';
 import { buildSchema, Resolver, Query } from 'type-graphql';
+import { createConnection } from 'typeorm';
 
 @Resolver()
 class RecipeResolver {
@@ -12,6 +13,8 @@ class RecipeResolver {
 }
 
 const server = async () => {
+    await createConnection();
+
     const schema = await buildSchema({
         resolvers: [RecipeResolver],
     });
