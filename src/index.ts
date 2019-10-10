@@ -5,6 +5,7 @@ import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
+import cors from 'cors';
 
 import { RegisterResolver } from './modules/user/Register';
 import { redis } from './redis';
@@ -24,6 +25,11 @@ const server = async () => {
     const app = express();
 
     const RedisStore = connectRedis(session);
+
+    app.use(cors({
+        credentials: true,
+        origin: 'http://localhost:3000' // frontend
+    }));
 
     app.use(
         session({
