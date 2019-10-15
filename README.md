@@ -30,3 +30,37 @@ The graphql playground setting should include the config: `"request.credentials"
 
 * **Docker (Optional)** check the `Dockerfile` and run the `setup.sh` for running the `psql` service inside a container.
 > **WARNING:** Make sure you dont already have a service running on the port **5432** (Default psql port).
+
+
+## GraphQL Schema
+> WIP. Extracted from the GraphQL Playground.
+
+```js
+
+type Mutation {
+  register(data: RegisterInput!): User!
+  login(password: String!, email: String!): User
+  confirmUser(token: String!): Boolean!
+}
+
+type Query {
+  hello: String!
+  me: User
+}
+
+input RegisterInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  name: String!
+}
+
+```
