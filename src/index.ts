@@ -11,7 +11,6 @@ import { RegisterResolver } from './modules/user/Register';
 import { redis } from './redis';
 import { LoginResolver } from './modules/user/Login';
 import { MeResolver } from './modules/user/Me';
-import { sendEmail } from './modules/utils/sendEmail';
 
 
 const server = async () => {
@@ -55,7 +54,6 @@ const server = async () => {
 
     app.listen(4000, () => {
         console.log('server started on http://localhost:4000/graphql');
-        sendEmail(); //TEMP: Just for testing.
     })
 }
 
