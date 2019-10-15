@@ -8,10 +8,11 @@ export class LogoutResolver {
        return new Promise((res, rej) => ctx.req.session!.destroy(err => {
            if (err) {
                console.error(err);
-               rej(false);
+               return rej(false);
            }
 
-           res(true);
+           ctx.res.clearCookie('qid');
+           return res(true);
        })
        )
    }
