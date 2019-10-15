@@ -15,13 +15,17 @@ export class LoginResolver {
         const user = await User.findOne({ where: { email }});
 
         if (!user) {
-            return null
+            return null;
         }
 
         const valid = await bcrypt.compare(password, user.password);
 
         if (!valid) {
-            return null
+            return null;
+        }
+
+        if (!user.confirmed) {
+            return null;
         }
 
         ctx.req.session!.userId = user.id
