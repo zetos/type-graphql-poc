@@ -3,6 +3,7 @@ import faker from 'faker';
 
 import { testConn } from "../../../test-utils/testConn";
 import { gCall } from "../../../test-utils/gCall";
+import { User } from "../../../entity/User";
 
 let conn: Connection;
 
@@ -44,6 +45,19 @@ describe('Register', () => {
             }
         });
 
-        console.log(response);
+        expect(response).toMatchObject({
+            data: {
+                register: {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email
+                }
+            }
+        });
+
+        const dbUser = await User.findOne({where: {email: user.email}});
+        expect(dbUser).toBeDefined();
+        expect(dbUser!.confirmed).toBeFalsy(); //user should not be confirmed yet
+        expect(dbUser!.firstName).toBe(user.firstName); //user should not be confirmed yet
     })
 })
