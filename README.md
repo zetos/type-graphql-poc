@@ -47,7 +47,7 @@ This new DB should follow the configuration of the `testConn.ts` file.
 * **Redis** service running on the localhost.
 
 * **Docker (Optional)** check the `Dockerfile` and run the `setup.sh` for running the `psql` service inside a container.
-> **WARNING:** Make sure you dont already have a service running on the port **5432** (Default psql port).
+> **WARNING:** Make sure you dont already have a service running on the port **5432** (Default psql port). Also, it does not create the db for running tests.
 
 
 ## GraphQL Schema
