@@ -26,6 +26,24 @@ The graphql playground setting should include the config: `"request.credentials"
 }
 ```
 
+You will also need to create another db **for running tests**.  
+To manually create it:
+
+```sh
+psql postgres -U zeno
+psql (11.5)
+Type "help" for help.
+
+postgres=> CREATE DATABASE foodb_test;
+CREATE DATABASE
+postgres=> GRANT ALL PRIVILEGES ON DATABASE foodb_test TO zeno;
+GRANT
+postgres=> exit
+```
+
+This new DB should follow the configuration of the `testConn.ts` file.
+
+
 * **Redis** service running on the localhost.
 
 * **Docker (Optional)** check the `Dockerfile` and run the `setup.sh` for running the `psql` service inside a container.
