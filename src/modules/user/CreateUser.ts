@@ -24,4 +24,4 @@ function createResolver<T extends ClassType, X extends ClassType>(
     return BaseResolver;
 }
 
-export const CreateuserResolver = createResolver('User', User, RegisterInput, User);
+export const CreateUserResolver = createResolver('User', User, RegisterInput, User);
