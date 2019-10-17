@@ -26,24 +26,6 @@ The graphql playground setting should include the config: `"request.credentials"
 }
 ```
 
-You will also need to create another db **for running tests**.  
-To manually create it:
-
-```sh
-psql postgres -U zeno
-psql (11.5)
-Type "help" for help.
-
-postgres=> CREATE DATABASE foodb_test;
-CREATE DATABASE
-postgres=> GRANT ALL PRIVILEGES ON DATABASE foodb_test TO zeno;
-GRANT
-postgres=> exit
-```
-
-This new DB should follow the configuration of the `testConn.ts` file.
-
-
 * **Redis** service running on the localhost.
 
 * **Docker (Optional)** check the `Dockerfile` and run the `setup.sh` for running the `psql` service inside a container.
@@ -82,3 +64,51 @@ type User {
 }
 
 ```
+
+## Running Tests
+
+You can play on the graphql playground just by running the project `npm start`,
+but for testing the file upload you will need to use the *Insomnia* ou *Postman* to make a post request with the graphql query (You can also use [cURL](https://github.com/jaydenseric/graphql-multipart-request-spec#curl-request)).
+
+The request:
+
+create a POST request to `localhost:3001/graphql` with the body type of `form-data` and:
+
+KEY        | Value 
+---        | --- 
+operations | {"query":"mutation AddProfilePicture($picture: Upload!) {\n  addProfilePicture(picture: $picture)\n}"}
+map        | {"0": ["variables.picture"]}
+0          | < Upload the file here >
+
+Body:
+
+```json
+{
+  "data": {
+    "addProfilePicture": true
+  }
+}
+```
+
+### For running the test script:
+
+Create another postgres db for running tests.  
+To manually create it:
+
+```sh
+psql postgres -U zeno
+psql (11.5)
+Type "help" for help.
+
+postgres=> CREATE DATABASE foodb_test;
+CREATE DATABASE
+postgres=> GRANT ALL PRIVILEGES ON DATABASE foodb_test TO zeno;
+GRANT
+postgres=> exit
+```
+
+This new DB should follow the configuration of the `testConn.ts` file.
+
+Once you this new db service running run the npm script: `npm run test`
+
+
