@@ -6,8 +6,8 @@ import session from "express-session";
 import connectRedis from "connect-redis";
 import cors from "cors";
 import queryComplexity, {
-  fieldConfigEstimator,
-  simpleEstimator
+  simpleEstimator,
+  fieldExtensionsEstimator
 } from "graphql-query-complexity";
 
 import { redis } from "./redis";
@@ -35,8 +35,7 @@ const main = async () => {
           console.log("Query Complexity:", complexity);
         },
         estimators: [
-          // Using fieldConfigEstimator is mandatory to make it work with type-graphql
-          fieldConfigEstimator(),
+          fieldExtensionsEstimator(),
           // This will assign each field a complexity of 1 if no other estimator
           // returned a value. We can define the default value for field not explicitly annotated
           simpleEstimator({
